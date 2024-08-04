@@ -2,12 +2,12 @@ NAME = test
 CXX = c++
 RM = rm -f
 CXXFLAGS = -Wall -Wextra -Werror
+
 SRCS =  main.cpp \
 		Animal.cpp \
 		Cat.cpp \
 		Dog.cpp \
-		WrongAnimal.cpp \
-		WrongCat.cpp
+		Brain.cpp \
 
 OBJS = $(SRCS:.cpp=.o)
 
