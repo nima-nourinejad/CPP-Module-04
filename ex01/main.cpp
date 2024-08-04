@@ -24,10 +24,17 @@ int main() {
   Dog *dog_2 = new Dog(dog_1);
   std::cout << dog_2->getIdea(0) << std::endl;
   delete dog_2;
+  std::cout << std::endl;
+  std::cout << std::endl;
 
   const Animal *j = new Dog();
-  const Animal *i = new Cat();
   delete j;
+  std::cout << std::endl;
+  std::cout << std::endl;
+  
+  const Animal *i = new Cat();
   delete i;
+  std::cout << std::endl;
+  std::cout << std::endl;
   return 0;
 }
