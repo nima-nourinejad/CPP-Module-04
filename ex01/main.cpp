@@ -9,25 +9,25 @@
 int main() {
   Cat cat_1;
   cat_1.setBrainIdea("Cat idea", 0);
-  std::cout << cat_1.getIdea(0)<< std::endl;
+  std::cout << cat_1.getIdea(0) << std::endl;
   std::cout << std::endl;
 
   Cat cat_2 = cat_1;
-  std::cout << cat_2.getIdea(0)<< std::endl;
+  std::cout << cat_2.getIdea(0) << std::endl;
   std::cout << std::endl;
-  
+
   Dog dog_1;
   dog_1.setBrainIdea("Dog idea", 0);
-  std::cout << dog_1.getIdea(0)<< std::endl;
+  std::cout << dog_1.getIdea(0) << std::endl;
   std::cout << std::endl;
 
   Dog *dog_2 = new Dog(dog_1);
-  std::cout << dog_2->getIdea(0)<< std::endl;
+  std::cout << dog_2->getIdea(0) << std::endl;
   delete dog_2;
 
-
-
-
-  
-  
+  const Animal *j = new Dog();
+  const Animal *i = new Cat();
+  delete j;
+  delete i;
+  return 0;
 }
