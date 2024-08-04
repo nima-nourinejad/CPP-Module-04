@@ -1,0 +1,257 @@
+#include "Animal.hpp"
+
+Animal::Animal() : type("animal") {
+  std::cout << "Animal Default Constructor" << std::endl;
+}
+Animal::~Animal() { std::cout << "Animal Destructor" << std::endl; }
+Animal::Animal(const Animal &src) : type(src.type) {
+  std::cout << "Animal Copy Constructor" << std::endl;
+}
+Animal &Animal::operator=(const Animal &src) {
+  std::cout << "Animal Assignment Operator" << std::endl;
+  if (this != &src)
+    type = src.type;
+  return *this;
+}
+void Animal::makeSound() const { std::cout << "Animal Sound" << std::endl; }
+std::string Animal::getType() const { return type; }#ifndef ANIMAL_HPP
+#define ANIMAL_HPP
+
+#include <iostream>
+
+class Animal {
+public:
+  Animal();
+  virtual ~Animal();
+  Animal(const Animal &src);
+  Animal &operator=(const Animal &src);
+  virtual void makeSound() const;
+  std::string getType() const;
+
+protected:
+  std::string type;
+
+private:
+};
+
+#endif
+#include "Cat.hpp"
+
+Cat::Cat() : Animal() {
+  std::cout << "Cat Default Constructor" << std::endl;
+  type = "Cat";
+}
+Cat::~Cat() { std::cout << "Cat Destructor" << std::endl; }
+Cat::Cat(const Cat &src) : Animal(src) {
+
+  std::cout << "Cat Copy Constructor" << std::endl;
+}
+Cat &Cat::operator=(const Cat &src) {
+  std::cout << "Cat Assignment Operator" << std::endl;
+  if (this != &src)
+    Animal::operator=(src);
+  return *this;
+}
+void Cat::makeSound() const { std::cout << "Cat Sound" << std::endl; }
+#ifndef CAT_HPP
+#define CAT_HPP
+
+#include "Animal.hpp"
+#include <iostream>
+
+class Cat : public Animal {
+public:
+  Cat();
+  virtual ~Cat();
+  Cat(const Cat &src);
+  Cat &operator=(const Cat &src);
+  virtual void makeSound() const;
+
+private:
+};
+
+#endif
+#include "Dog.hpp"
+
+Dog::Dog() : Animal() {
+  std::cout << "Dog Default Constructor" << std::endl;
+  type = "Dog";
+}
+Dog::~Dog() { std::cout << "Dog Destructor" << std::endl; }
+Dog::Dog(const Dog &src) : Animal(src) {
+  std::cout << "Dog Copy Constructor" << std::endl;
+}
+Dog &Dog::operator=(const Dog &src) {
+  std::cout << "Dog Assignment Operator" << std::endl;
+  if (this != &src)
+    Animal::operator=(src);
+  return *this;
+}
+void Dog::makeSound() const { std::cout << "Dog Sound" << std::endl; }
+#ifndef DOG_HPP
+#define DOG_HPP
+
+#include "Animal.hpp"
+#include <iostream>
+
+class Dog : public Animal {
+public:
+  Dog();
+  virtual ~Dog();
+  Dog(const Dog &src);
+  Dog &operator=(const Dog &src);
+  virtual void makeSound() const;
+
+private:
+};
+
+#endif
+#include "Animal.hpp"
+#include "Cat.hpp"
+#include "Dog.hpp"
+#include "WrongAnimal.hpp"
+#include "WrongCat.hpp"
+
+int main() {
+  const Animal *meta = new Animal();
+  std::cout << std::endl;
+  const Animal *j = new Dog();
+  std::cout << std::endl;
+  const Animal *i = new Cat();
+  std::cout << std::endl;
+  const WrongAnimal *wrongmeta = new WrongAnimal();
+  std::cout << std::endl;
+  const WrongAnimal *wrongj = new WrongCat();
+  std::cout << std::endl;
+  std::cout << j->getType() << " " << std::endl;
+  std::cout << std::endl;
+  std::cout << i->getType() << " " << std::endl;
+  std::cout << std::endl;
+  std::cout << wrongj->getType() << " " << std::endl;
+  std::cout << std::endl;
+  i->makeSound();
+  j->makeSound();
+  meta->makeSound();
+  wrongj->makeSound();
+  wrongmeta->makeSound();
+  std::cout << std::endl;
+  delete i;
+  std::cout << std::endl;
+  delete j;
+  std::cout << std::endl;
+  delete meta;
+  std::cout << std::endl;
+  delete wrongj;
+  std::cout << std::endl;
+  delete wrongmeta;
+  return 0;
+}NAME = test
+CXX = c++
+RM = rm -f
+CXXFLAGS = -Wall -Wextra -Werror
+SRCS =  main.cpp \
+		Animal.cpp \
+		Cat.cpp \
+		Dog.cpp \
+		WrongAnimal.cpp \
+		WrongCat.cpp
+
+OBJS = $(SRCS:.cpp=.o)
+
+.PHONY: all clean fclean re c98
+
+all: $(NAME)
+
+$(NAME): $(OBJS)
+	@$(CXX) $(CXXFLAGS) $(OBJS) -o $@
+
+%.o: %.cpp
+	@$(CXX) $(CXXFLAGS) -c $< -o $@
+
+clean:
+	@$(RM) $(OBJS)
+
+fclean: clean
+	@$(RM) $(NAME)
+
+re: fclean all
+
+c98: CXXFLAGS += -std=c++98
+c98: re
+#include "WrongAnimal.hpp"
+
+WrongAnimal::WrongAnimal() : type("WrongAnimal") {
+  std::cout << "WrongAnimal Default Constructor" << std::endl;
+}
+WrongAnimal::~WrongAnimal() {
+  std::cout << "WrongAnimal Destructor" << std::endl;
+}
+WrongAnimal::WrongAnimal(const WrongAnimal &src) : type(src.type) {
+  std::cout << "WrongAnimal Copy Constructor" << std::endl;
+}
+WrongAnimal &WrongAnimal::operator=(const WrongAnimal &src) {
+  std::cout << "WrongAnimal Assignment Operator" << std::endl;
+  if (this != &src)
+    type = src.type;
+  return *this;
+}
+void WrongAnimal::makeSound() const {
+  std::cout << "WrongAnimal Sound" << std::endl;
+}
+std::string WrongAnimal::getType() const { return type; }
+#ifndef WRONGANIMAL_HPP
+#define WRONGANIMAL_HPP
+
+#include <iostream>
+
+class WrongAnimal {
+public:
+  WrongAnimal();
+  ~WrongAnimal();
+  WrongAnimal(const WrongAnimal &src);
+  WrongAnimal &operator=(const WrongAnimal &src);
+  void makeSound() const;
+  std::string getType() const;
+
+protected:
+  std::string type;
+
+private:
+};
+
+#endif
+#include "WrongCat.hpp"
+
+WrongCat::WrongCat() : WrongAnimal() {
+  std::cout << "WrongCat Default Constructor" << std::endl;
+  type = "WrongCat";
+}
+WrongCat::~WrongCat() { std::cout << "WrongCat Destructor" << std::endl; }
+WrongCat::WrongCat(const WrongCat &src) : WrongAnimal(src) {
+  std::cout << "WrongCat Copy Constructor" << std::endl;
+}
+WrongCat &WrongCat::operator=(const WrongCat &src) {
+  std::cout << "WrongCat Assignment Operator" << std::endl;
+  if (this != &src)
+    WrongAnimal::operator=(src);
+  return *this;
+}
+void WrongCat::makeSound() const { std::cout << "WrongCat Sound" << std::endl; }
+#ifndef WRONGCAT_HPP
+#define WRONGCAT_HPP
+
+#include "WrongAnimal.hpp"
+#include <iostream>
+
+class WrongCat : public WrongAnimal {
+public:
+  WrongCat();
+  ~WrongCat();
+  WrongCat(const WrongCat &src);
+  WrongCat &operator=(const WrongCat &src);
+  void makeSound() const;
+
+private:
+};
+
+#endif
