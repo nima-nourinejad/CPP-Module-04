@@ -2,8 +2,11 @@
 
 Brain::Brain() { std::cout << "Brain constructor" << std::endl; }
 Brain::~Brain() { std::cout << "Brain destructor" << std::endl; }
-Brain::Brain(const Brain &src) : _ideas(src._ideas) {
+
+Brain::Brain(const Brain &src) {
   std::cout << "Brain copy constructor" << std::endl;
+  for (int i = 0; i < 100; i++)
+      this->_ideas[i] = src._ideas[i];
 }
 Brain &Brain::operator=(const Brain &src) {
   std::cout << "Brain assignation operator" << std::endl;
@@ -20,5 +23,6 @@ void Brain::setIdea(const std::string &idea, int index) {
 std::string Brain::getIdea(int index) const {
   if (index >= 0 && index < 100)
     return this->_ideas[index];
+  std::cerr << "Index out of bounds" << std::endl;	
   return "";
 }
