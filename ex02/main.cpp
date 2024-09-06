@@ -7,16 +7,16 @@
 #include <iostream>
 
 int main() {
-  const Animal *j = new Dog();
+  Animal *j = new Dog();
   delete j;
   std::cout << std::endl;
   std::cout << std::endl;
   
-  const Animal *i = new Cat();
+  Animal *i = new Cat();
   delete i;
   std::cout << std::endl;
   std::cout << std::endl;
 
-//   const Animal animal; not instantiable
+//   Animal animal; not instantiable
   return 0;
 }

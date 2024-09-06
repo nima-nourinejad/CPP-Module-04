@@ -18,7 +18,7 @@ int main() {
 		delete animals[i];
 	delete[] animals;
 
-	std::cout << "---------------------" << std::endl;
+	std::cout << std::endl;
 	Cat *cat = new Cat();
 	cat->setBrainIdea("I am a cat", 0);
 	Cat copy(*cat);
